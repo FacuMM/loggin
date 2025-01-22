@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 import sqlite3
 import os
+from init_db.py import crear_tabla
+
 
 app = Flask(__name__)
+crear_tabla()
 
 # Crear la base de datos si no existe
 DATABASE = "database.db"
