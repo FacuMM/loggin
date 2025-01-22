@@ -5,9 +5,29 @@ import os
 
 
 app = Flask(__name__)
-crear_tabla()
+def crear_tabla():
+    try:
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
 
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL
+        )
+        """)
+
+        conn.commit()
+        conn.close()
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        conn.close()
+crear_tabla()
 # Crear la base de datos si no existe
+
 DATABASE = "database.db"
 
 def conectar_db():
